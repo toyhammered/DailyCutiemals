@@ -1,0 +1,25 @@
+AnimalIntent to send me a {Animal} picture
+AnimalIntent to send me a {Adjective} {Animal} picture
+AnimalIntent to find me a {Animal} picture
+AnimalIntent to find me a {Adjective} {Animal} picture
+AnimalIntent to get me a {Animal} picture
+AnimalIntent to get me a {Adjective} {Animal} picture
+
+AnimalIntent to send me a {Animal} image
+AnimalIntent to send me a {Adjective} {Animal} image
+AnimalIntent to find me a {Animal} image
+AnimalIntent to find me a {Adjective} {Animal} image
+AnimalIntent to get me a {Animal} image
+AnimalIntent to get me a {Adjective} {Animal} image
+
+AddEmailIntent my email is {Email}
+AddEmailIntent to add my email {Email}
+
+VerifyEmailIntent my token is {ALetters} {BLetters} {CLetters} {DLetters} {ELetters} {FLetters}
+VerifyEmailIntent to verify my token is {ALetters} {BLetters} {CLetters} {DLetters} {ELetters} {FLetters}
+
+DeleteEmailIntent to delete my email
+
+ResendEmailConfirmationIntent to resend email confirmation
+ResendEmailConfirmationIntent resend email confirmation
+ResendEmailConfirmationIntent to send email confirmation again

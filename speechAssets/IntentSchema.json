@@ -1,0 +1,76 @@
+{
+  "intents": [
+    {
+     "intent": "AnimalIntent",
+     "slots":[
+        {
+          "name": "Adjective",
+          "type": "LIST_OF_ADJECTIVES"
+        },
+        {
+          "name": "Animal",
+          "type": "LIST_OF_ANIMALS"
+        }
+      ]
+    },
+    {
+     "intent": "AddEmailIntent",
+     "slots":[
+        {
+          "name": "Email",
+          "type": "LIST_OF_EMAILS"
+        }
+      ]
+    },
+    {
+      "intent": "VerifyEmailIntent",
+      "slots":[
+        {
+          "name": "ALetters",
+          "type": "LIST_OF_LETTERS"
+        },
+        {
+          "name": "BLetters",
+          "type": "LIST_OF_LETTERS"
+        },
+        {
+          "name": "CLetters",
+          "type": "LIST_OF_LETTERS"
+        },
+        {
+          "name": "DLetters",
+          "type": "LIST_OF_LETTERS"
+        },
+        {
+          "name": "ELetters",
+          "type": "LIST_OF_LETTERS"
+        },
+        {
+          "name": "FLetters",
+          "type": "LIST_OF_LETTERS"
+        }
+      ]
+    },
+    {
+      "intent": "DeleteEmailIntent"
+    },
+    {
+      "intent": "ResendEmailConfirmationIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.YesIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    }
+  ]
+}
