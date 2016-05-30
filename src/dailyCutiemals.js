@@ -81,7 +81,7 @@ function getImage(adjective, animal, response, session) {
   // be able to use fetch/promises
   var promise = require('es6-promise').polyfill();
   var fetch = require('isomorphic-fetch');
-  var API_KEY = ENV['FLICKR_API_ID']
+  var API_KEY = ENV['FLICKR_API'];
 
   var query = (adjective + " " + animal).replace("undefined", "").replace(" ", "+");
 
@@ -105,6 +105,7 @@ function getImage(adjective, animal, response, session) {
       if (size == 0) {
         var speechText = "I could not find any images. You should most likely change your query.";
         var repromptText = "You may say something like send me a cute cat picture";
+
         response.ask(speechText, repromptText);
       } else {
         sendEmail(findLink(data.photos.photo, size), query, response, session);
@@ -114,6 +115,7 @@ function getImage(adjective, animal, response, session) {
       console.log("Something went wrong!", "error: " + errorMessage);
       var speechText = "If you are hearing this message, something bad on my part most likely happened, or Flickr is overloaded right now. Please try again.";
       var repromptText = speechText;
+
       response.ask(speechText, repromptText);
   });
 
@@ -129,8 +131,7 @@ function findLink(data, amount) {
     if (data[rand_num].hasOwnProperty('url_l')) {
       console.log("Link Returned:");
       console.log(data[rand_num].url_l);
-      console.log("************");
-      console.log(data[rand_num]);
+
       return data[rand_num].url_l;
     }
     console.log("url_l does not exist");
@@ -140,6 +141,7 @@ function findLink(data, amount) {
   // if the query is unable to find a link
   var speechText = "I could not find any images. You should most likely change your query.";
   var repromptText = "You may say something like send me a cute cat picture";
+
   response.ask(speechText, repromptText);
 }
 
@@ -151,14 +153,14 @@ function sendEmail(image, query, response, session) {
 
     // NEED TO ADD UNSUBSCRIBE LINK TO MESSAGE
     var unsubscribe_url = "https://30j3zknmq5.execute-api.us-east-1.amazonaws.com/prod/unsubscribe/" + session.user.userId;
-    var unsubscribe = '<br /><div><a href=' + unsubscribe_url + '>Unsubscribe</a></div>';
-    console.log(unsubscribe);
+    var html_body = '<img src="' + image + '" >' +
+                    '<br /><div>----------------------------------------------</div><br /><p>Not sure why you got this email? <a href=' + unsubscribe_url + '>Unsubscribe</a></p>';
     var message = {
       to: data.Email,
       from: 'dailycutiemals@drassiner.com',
       subject: 'Hopefully this ' + query + ' picture will cheer you up!',
-      html: '<img src="' + image + '" >' + unsubscribe
-    }
+      html: html_body
+    };
 
     // sending message
     sendgrid.send(message, function(err, json) {

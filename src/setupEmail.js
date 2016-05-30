@@ -13,7 +13,6 @@ var SetupEmail = function () {
 SetupEmail.prototype = Object.create(AlexaSkill.prototype);
 SetupEmail.prototype.constructor = SetupEmail;
 
-
 SetupEmail.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
   console.log("SetupEmail onSessionStarted requestId: " + sessionStartedRequest.requestId
         + ", sessionId: " + session.sessionId);
@@ -44,35 +43,27 @@ SetupEmail.prototype.intentHandlers = {
     response.ask(speechText, repromptText);
   },
   "DeleteEmailIntent": function(intent, session, response) {
-    var speechText = "You need to first create an email before you can delete it.";
-    var repromptText = {
-      speech: "<speak> Please say <break time = \"0.2s\" /> my email is <break time = \"0.2s\" /> followed by your email <speak>",
-      type: AlexaSkill.speechOutputType.SSML
-    };
+    var speechText = "You need to first add an email before you can delete it. Please say my email is followed by your email address to add your email.";
+    var repromptText = "Please say my email is followed by your email";
+
     response.ask(speechText, repromptText);
   },
   "VerifyEmailIntent": function(intent, session, response) {
-    var speechText = "You need to first create an email before you can verify it.";
-    var repromptText = {
-      speech: "<speak> Please say <break time = \"0.2s\" /> my email is <break time = \"0.2s\" /> followed by your email <speak>",
-      type: AlexaSkill.speechOutputType.SSML
-    };
+    var speechText = "You need to first add an email before you can verify it. Please say my email is followed by your email address to add your email.";
+    var repromptText = "Please say my email is followed by your email";
+
     response.ask(speechText, repromptText);
   },
   "ResendEmailConfirmationIntent": function(intent, session, response) {
-    var speechText = "You need to first create an email before you can verify it.";
-    var repromptText = {
-      speech: "<speak> Please say <break time = \"0.2s\" /> my email is <break time = \"0.2s\" /> followed by your email <speak>",
-      type: AlexaSkill.speechOutputType.SSML
-    };
+    var speechText = "You need to first add an email before you can verify it. Please say my email is followed by your email address to add your email.";
+    var repromptText = "Please say my email is followed by your email";
+
     response.ask(speechText, repromptText);
   },
   "AnimalIntent": function(intent, session, response) {
-    var speechText = "You need to first create an email before you can have cute animal pictures sent to you!";
-    var repromptText = {
-      speech: "<speak> Please say <break time = \"0.2s\" /> my email is <break time = \"0.2s\" /> followed by your email <speak>",
-      type: AlexaSkill.speechOutputType.SSML
-    };
+    var speechText = " You need to first add an email so I know where to send your cute animal pictures. Please say my email is followed by your email address to add your email.";
+    var repromptText = "Please say my email is followed by your email";
+
     response.ask(speechText, repromptText);
   },
   "AMAZON.YesIntent": function(intent, session, response) {
@@ -80,16 +71,15 @@ SetupEmail.prototype.intentHandlers = {
     submitEmail(sessionAttributes.email, session, response);
   },
   "AMAZON.NoIntent": function(intent, session, response) {
-    var speechOutput = {
-      speech: "<speak> Okay, lets try again. Please say <break time = \"0.2s\" /> my email is <break time = \"0.2s\" /> followed by your email <speak>",
-      type: AlexaSkill.speechOutputType.SSML
-    }
+    var speechOutput = "Okay, lets try again. Please say my email is followed by your email address";
     var repromptText = "You may spell out your email if I am not interpreting what you are saying correctly.";
+
     response.ask(speechOutput, repromptText);
   },
   "AMAZON.HelpIntent": function(intent, session, response) {
-    var speechText = "When saying your email, you may spell it out or say each word. Emails will be formatted as so: fake at fake dot com";
-    var repromptText = speechText;
+    var speechText = "When saying your email, you may spell it out or say each word. Also remember to say my email is before saying your email.";
+    var repromptText = "Please say my email is followed by your email";
+
     response.ask(speechText, repromptText);
   },
   "AMAZON.StopIntent": function(intent, session, response) {
@@ -109,10 +99,7 @@ function welcomeSetupEmailMessage(response, session) {
   sessionAttributes = {};
   session.attributes = {};
 
-  var speechOutput = {
-    speech:  "<speak> Welcome to Daily Cutiemals. To add your email you will need to say <break time=\"0.2s\"/> my email is <break time = \"0.2s\"/> followed by your email. </speak>",
-    type: AlexaSkill.speechOutputType.SSML
-  }
+  var speechOutput = "Welcome to Daily Cutiemals. To add your email you will need to say my email is followed by your email address.";
   var repromptText = speechOutput;
 
   response.ask(speechOutput, repromptText);
@@ -142,7 +129,7 @@ function submitEmail(email, session, response) {
   }
 
   var successMessage = function() {
-    response.tell("You have been sent a verification code. The next time you use Daily Cutiemals it will ask you to verify your email using that code.");
+    response.tell("You have been sent a verification token. The next time you use Daily Cutiemals you will have to verify your email using that token.");
   }
 
   if (reg.test(email)) {

@@ -39,7 +39,7 @@ AuthEmail.prototype.intentHandlers = {
     });
   },
   "VerifyEmailIntent": function(intent, session, response) {
-    // can I just loop through the intent.slots?
+
     var auth_token = "";
     auth_token += intent.slots.ALetters.value;
     auth_token += intent.slots.BLetters.value;
@@ -68,7 +68,10 @@ AuthEmail.prototype.intentHandlers = {
     });
   },
   "AnimalIntent": function(intent, session, response) {
-    welcomeAuthEmailMessage(response, session);
+    var speechText = "You need to first verify your email before you can be sent cute animal pictures . Please say my token is and then spell out the authentication token that was sent to your email.";
+    var repromptText = "Please say my token is and then spell out the authentication token that was sent to your email.";
+
+    response.ask(speechText, repromptText);
   },
   "AMAZON.YesIntent": function(intent, session, response) {
     welcomeAuthEmailMessage(response, session);
@@ -95,8 +98,9 @@ AuthEmail.prototype.intentHandlers = {
 };
 
 function welcomeAuthEmailMessage(response, session) {
-  var speechText = "Welcome to Daily Cutiemals. I am now going to help you authorize your email. Please say <break time = \"0.2s\" /> my token is <break time = \"0.2s\" /> and then spell out the authentication token that was sent to your email. ";
+  var speechText = "Welcome to Daily Cutiemals. I am now going to help you authorize your email. Please say my token is and then spell out the authentication token that was sent to your email.";
   var repromptText = "If you did not get an email you may ask Alexa to resend email confirmation";
+
   response.ask(speechText, repromptText);
 }
 
